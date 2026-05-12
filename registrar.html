@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>AvisaTEC</title>
+    </head>
+    <body>
+        <img
+        src="imagenes/logoTecAzul.webp"
+        alt = "Logo del Instituto Tecnológico de Costa Rica"
+        height="65">
+        <h1>Crear cuenta</h1>
+        <br>
+        <br>
+        <form action="index.php" method="POST">
+
+            <label for="Correo"> Correo: </label>
+            <br>
+            <input type="email" id="Correo"
+            placeholder="correo@estudiantec.cr"
+            required>
+            <br>
+            <br>
+
+
+            <label for="Contraseña"> Contraseña: </label>
+            <br>
+            <input type="password" id="Contraseña"
+            minlength="8"
+            required>
+            <br>
+            <br>
+
+            <label for="asociacion">Asociación:</label>
+            <br>
+            <select id="asociacion">
+                <option value="computacion">Computación</option>
+                <option value="materiales">Materiales</option>
+            </select>
+            <br>
+            <input type="submit"
+            value="Crear cuenta">
+        </form>
+        <br>
+        <br>
+        <a href="index.html">
+            Ya tengo una cuenta
+        </a>
+    </body>
+</html>
