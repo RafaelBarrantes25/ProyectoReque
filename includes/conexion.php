@@ -1,14 +1,11 @@
 <?php
 
 $conexion = mysqli_connect(
-    "localhost",
+    "127.0.0.1",
     "root",
     "",
-    "avisatec"
+    "avisatec",
+    3307
 );
-
-if(!$conexion){
-    die("Error de conexión");
-}
 
 ?>

@@ -19,6 +19,38 @@ $titulo = $_POST["titulo"];
 $descripcion =
 $_POST["descripcion"];
 
+$sqlImagen = "";
+
+if(
+
+    !empty(
+        $_FILES["imagen"]["name"]
+    )
+
+){
+
+    $nombreImagen =
+    $_FILES["imagen"]["name"];
+
+    $rutaTemporal =
+    $_FILES["imagen"]["tmp_name"];
+
+    $rutaDestino =
+    "../uploads/" .
+    $nombreImagen;
+
+    move_uploaded_file(
+
+        $rutaTemporal,
+
+        $rutaDestino
+
+    );
+
+    $sqlImagen =
+    ", imagen='$nombreImagen'";
+}
+
 $sql = "UPDATE noticias
 
 SET
@@ -26,6 +58,8 @@ SET
 titulo='$titulo',
 
 descripcion='$descripcion'
+
+$sqlImagen
 
 WHERE id='$id'";
 
