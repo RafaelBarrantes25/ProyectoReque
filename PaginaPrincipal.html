@@ -3,440 +3,173 @@
 session_start();
 
 if(!isset($_SESSION["correo"])){
-
     header("Location: index.php");
+    exit();
 }
 
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>AvisaTEC</title>
+        <link rel="stylesheet" href="PaginaPrincipal.css">
+    </head>
+    <body>
+        <img
+            src="imagenes/logoTecAzul.webp"
+            alt = "Logo del Instituto Tecnológico de Costa Rica"
+            height="65">
+        <h1 id="titulo">AvisaTEC</h1>
+        <p>Bienvenido, <?php echo $_SESSION["correo"];?></p>
+    
+        <!-- Inicio del calendario de eventos -->
 
-<head>
-
-    <meta charset="UTF-8">
-
-    <title>AvisaTEC</title>
-
-    <style>
-
-        .calendar {
-            font-family: Arial, sans-serif;
-            max-width: 360px;
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
-
-        .header {
-            text-align: center;
-            font-weight: bold;
-            background: #f4f4f4;
-            padding: 5px;
-            text-transform: capitalize;
-        }
-
-        .weekdays {
-            display: grid;
-            grid-template-columns: repeat(8, 1fr);
-            text-align: center;
-            font-weight: bold;
-            font-size: 0.8em;
-            margin-top: 10px;
-        }
-
-        .days {
-            display: grid;
-            grid-template-columns: repeat(8, 1fr);
-            text-align: center;
-            margin-top: 5px;
-        }
-
-        .days div {
-            padding: 10px 0;
-            border: 1px solid #eee;
-        }
-
-        .days div:hover {
-            background: #ddd;
-            cursor: pointer;
-        }
-
-        .semana-col {
-            background: #e8f4fd;
-            color: #0066cc;
-            font-weight: bold;
-            border: 1px solid #bce0fd !important;
-            cursor: default !important;
-        }
-
-        .semana-col:hover {
-            background: #e8f4fd !important;
-        }
-
-        .today {
-            background: #0066cc;
-            color: white;
-            font-weight: bold;
-        }
-
-    </style>
-
-</head>
-
-<body>
-
-    <img
-    src="imagenes/logoTecAzul.webp"
-    alt="Logo TEC"
-    height="65">
-
-    <h1>AvisaTEC</h1>
-
-    <p>
-
-        Bienvenido,
-
-        <?php
-
-        echo $_SESSION["correo"];
-
-        ?>
-
-    </p>
-
-    <!-- Calendario -->
-
-    <div class="calendar">
-
-        <div
-        class="header"
-        id="calendar-month">
-
-            Cargando...
-
-        </div>
-
-        <div class="weekdays">
-
-            <div style="color: #0066cc;">
-                Sem
+        <div class="calendar">
+            <div class="header" id="calendar-month">Cargando...</div>
+            <div class="weekdays">
+                <div style="color: #0066cc;">Sem</div>
+                <div>Lu</div><div>Ma</div><div>Mi</div><div>Ju</div><div>Vi</div><div>Sa</div><div>Do</div>
             </div>
-
-            <div>Lu</div>
-            <div>Ma</div>
-            <div>Mi</div>
-            <div>Ju</div>
-            <div>Vi</div>
-            <div>Sa</div>
-            <div>Do</div>
-
+            <div class="days" id="calendar-days"></div>
         </div>
-
-        <div
-        class="days"
-        id="calendar-days">
-        </div>
-
-    </div>
-
-    <br><br>
-
-    <!-- Ver noticias -->
-
-    <a href="noticias.php">
-
-        <button>
-
-            Ver noticias
-
-        </button>
-
-    </a>
-
-    <!-- Solo admins -->
-
-    <?php
-
-    if(
-        $_SESSION["rol"]
-        == "administrador"
-    ){
-
-    ?>
-
-        <br><br>
-
-        <a href="publicar.php">
-
-            <button>
-
-                Publicar noticia
-
-            </button>
-
-        </a>
-
-    <?php
-
-    }
-
-    ?>
-
-    <br><br>
-
-    <!-- Asociaciones -->
-
-    <h3>
-        Lista de asociaciones:
-    </h3>
-
-    <ul>
-
-        <li>
-
-            <button type="button">
-
-                Asociación A
-
-            </button>
-
-        </li>
-
-        <li>
-
-            <button type="button">
-
-                Asociación B
-
-            </button>
-
-        </li>
-
-        <li>
-
-            <button type="button">
-
-                Asociación C
-
-            </button>
-
-        </li>
-
-    </ul>
-
-    <br>
-
-    <!-- Footer -->
-
-    <footer>
-
-        <hr>
-
-        <p>
-
-            Copyright libre -
-            Puedes copiar y usar
-            este sitio web sin
-            restricciones.
-
-        </p>
-
-        <button type="button">
-
-            <img
-            src="imagenes/News.png"
-            alt="News"
-            height="50">
-
-            Notas de actualización
-
-        </button>
-
-        <br><br>
-
-        <button type="button">
-
-            <img
-            src="imagenes/Perfil_PorDefecto.png"
-            alt="Perfil"
-            height="50">
-
-            Datos Personales
-
-        </button>
-
-        <br><br>
-
-        <a href="logout.php">
-
-            <button>
-
-                Cerrar sesión
-
-            </button>
-
-        </a>
-
-    </footer>
-
-    <!-- JavaScript calendario -->
-
-    <script>
-
-    function generarCalendario(){
-
-        const fechaActual = new Date();
-
-        const ano =
-        fechaActual.getFullYear();
-
-        const mes =
-        fechaActual.getMonth();
-
-        const diaHoy =
-        fechaActual.getDate();
-
-        const opcionesMes = {
-
-            month: 'long',
-            year: 'numeric'
-
-        };
-
-        document
-        .getElementById(
-            'calendar-month'
-        )
-        .innerText =
-        fechaActual
-        .toLocaleDateString(
-            'es-ES',
-            opcionesMes
-        );
-
-        const primerDiaMes =
-        new Date(
-            ano,
-            mes,
-            1
-        ).getDay();
-
-        const totalDiasMes =
-        new Date(
-            ano,
-            mes + 1,
-            0
-        ).getDate();
-
-        const contenedorDias =
-        document.getElementById(
-            'calendar-days'
-        );
-
-        contenedorDias.innerHTML = "";
-
-        let semanaActual = 1;
-
-        let celdaSemana =
-        document.createElement('div');
-
-        celdaSemana.innerText =
-        "S" + semanaActual;
-
-        celdaSemana.classList.add(
-            'semana-col'
-        );
-
-        contenedorDias
-        .appendChild(
-            celdaSemana
-        );
-
-        let contadorColumnas = 1;
-
-        for(
-            let i = 0;
-            i < primerDiaMes;
-            i++
-        ){
-
-            const espacioBlanco =
-            document.createElement(
-                'div'
-            );
-
-            contenedorDias
-            .appendChild(
-                espacioBlanco
-            );
-
-            contadorColumnas++;
-        }
-
-        for(
-            let dia = 1;
-            dia <= totalDiasMes;
-            dia++
-        ){
-
-            if(
-                contadorColumnas === 8
-            ){
-
-                semanaActual++;
-
-                celdaSemana =
-                document.createElement(
-                    'div'
-                );
-
-                celdaSemana.innerText =
-                "S" + semanaActual;
-
-                celdaSemana.classList.add(
-                    'semana-col'
-                );
-
-                contenedorDias
-                .appendChild(
-                    celdaSemana
-                );
-
-                contadorColumnas = 1;
+        <br>
+
+        <script>
+        function generarCalendario() {
+            const fechaActual = new Date();
+            const ano = fechaActual.getFullYear();
+            const mes = fechaActual.getMonth(); 
+            const diaHoy = fechaActual.getDate();
+
+            // Colocar mes y año en el encabezado
+            const opcionesMes = { month: 'long', year: 'numeric' };
+            document.getElementById('calendar-month').innerText = fechaActual.toLocaleDateString('es-ES', opcionesMes);
+
+            const primerDiaMes = new Date(ano, mes, 0).getDay(); 
+            const totalDiasMes = new Date(ano, mes + 1, 0).getDate(); 
+
+            const contenedorDias = document.getElementById('calendar-days');
+            contenedorDias.innerHTML = ""; 
+
+            // Sabemos que el 18 de mayo de 2026 empieza la Semana 13.
+            // Calculamos qué semana le toca al día 1 del mes actual.
+            const fecha18Mayo = new Date(2026, 4, 18); // 18 de Mayo
+            const primerDiaFecha = new Date(ano, mes, 1);
+        
+            // Pasamos la diferencia de tiempo a días matemáticos simples
+            const milisegundosPorDia = 24 * 60 * 60 * 1000;
+            const diferenciaDias = Math.round((primerDiaFecha - fecha18Mayo) / milisegundosPorDia);
+        
+            // Calculamos cuántas semanas de desfase hay respecto a la semana 13
+            // Usamos Math.floor para alinearlo con los bloques de 7 días (domingo a sábado de la cuadrícula)
+            let semanaActual = 12 + Math.floor((diferenciaDias + primerDiaMes - 1) / 7);
+
+            // 1. Crear la etiqueta de la primera fila de semanas
+            let celdaSemana = document.createElement('div');
+            celdaSemana.innerText = "S" + semanaActual;
+            celdaSemana.classList.add('semana-col');
+            contenedorDias.appendChild(celdaSemana);
+
+            let contadorColumnas = 1; 
+
+            // 2. Agregar los espacios en blanco del principio del mes (días antes del día 1)
+            for (let i = 0; i < primerDiaMes; i++) {
+                const espacioBlanco = document.createElement('div');
+                contenedorDias.appendChild(espacioBlanco);
+                contadorColumnas++;
             }
 
-            const celdaDia =
-            document.createElement(
-                'div'
-            );
+            // 3. Dibujar los días numéricos del mes
+            for (let dia = 1; dia <= totalDiasMes; dia++) {
+                // Si ya llenamos la fila de la cuadrícula (8 espacios: 1 semana + 7 días), saltamos
+                if (contadorColumnas === 8) {
+                    semanaActual++;
+                    celdaSemana = document.createElement('div');
+                    celdaSemana.innerText = "S" + semanaActual;
+                    celdaSemana.classList.add('semana-col');
+                    contenedorDias.appendChild(celdaSemana);
+                    contadorColumnas = 1; 
+                }
 
-            celdaDia.innerText = dia;
+                const celdaDia = document.createElement('div');
+                celdaDia.innerText = dia;
 
-            if(
-                dia === diaHoy
-            ){
+                if (dia === diaHoy) {
+                    celdaDia.classList.add('today');
+                }
 
-                celdaDia.classList.add(
-                    'today'
-                );
+                contenedorDias.appendChild(celdaDia);
+               contadorColumnas++;
             }
-
-            contenedorDias
-            .appendChild(
-                celdaDia
-            );
-
-            contadorColumnas++;
         }
 
-    }
+        generarCalendario();
+        </script>
 
-    generarCalendario();
+        <!-- Fin del calendario de eventos -->
+        <!-- Ver noticias -->
+        <br><br>
 
-    </script>
+        <a href="noticias.php">
+            <button>Ver noticias</button>
+        </a>
 
-</body>
-</html>
+        <!-- Publicar noticias (Solo admins) -->
+        <?php if ($_SESSION["rol"] == "administrador") { ?>
+
+            <br><br>
+            <a href="publicar.php">
+                <button>Publicar noticia</button>
+            </a>
+        <?php } ?>
+
+        <br><br>
+
+        <!-- Inicio de la lista de las asociaciones -->
+        
+        <h3>Lista de asociaciones:</h3>
+
+        <ul id="listaAsociaciones">
+            <li>
+                <form action>
+                    <button type="button">Asociación A</button>
+                </form>
+            </li>
+    
+            <li>
+                <form action>
+                    <button type="submit">Asociación B</button>
+                </form>
+            </li>
+    
+            <li>
+                <form action>
+                    <button type="submit">Asociación C</button>
+                </form>
+            </li>
+        </ul>
+        <br>
+
+        <!-- Fin de la lista de las asociaciones -->
+
+        <footer>
+            <hr>
+            <p>Copyright libre - Puedes copiar y usar este sitio web sin restricciones.</p>
+        
+            <form>
+                <button type="button">
+                    <img src="imagenes/News.png" alt="News" height="50" style="vertical-align: middle;"> Notas de actualización
+                </button>
+            </form>
+            <br>
+            <form>
+                <button type="button">
+                    <img src="imagenes/Perfil_PorDefecto.png" alt="Perfil_PorDefecto" height="50" style="vertical-align: middle;"> Datos Personales
+                </button>
+            </form>
+        </footer>
 
     </body>
 </html>
