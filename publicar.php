@@ -28,7 +28,8 @@
 
     <form
     action="includes/guardar_noticia.php"
-    method="POST">
+    method="POST"
+    enctype="multipart/form-data">
 
         <label>Título</label>
         <br>
@@ -53,6 +54,17 @@
         <input
         type="submit"
         value="Publicar">
+
+        <label>Imagen</label>
+
+        <br>
+
+        <input
+        type="file"
+        name="imagen"
+        accept="image/*">
+
+        <br><br>
 
     </form>
 
