@@ -84,6 +84,7 @@
 
         <br><br>
 
+        <!-- Esto quiero ver que pasa si no metemos nada en la BD
         <label
         class="texto-vacio">
 
@@ -110,6 +111,7 @@
             </option>
 
         </select>
+        -->
 
         <br><br>
 
