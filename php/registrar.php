@@ -53,14 +53,15 @@
         <br>
 
         <input
-        type="email"
-        name="correo"
-        placeholder="correo@estudiantec.cr"
-        required
-        class="campo-vacio">
+            type="email"
+            name="correo"
+            placeholder="correo@estudiantec.cr"
+            pattern="[a-zA-Z0-9._%+-]+@estudiantec\.cr$"
+            title="Por favor, ingresa un correo institucional válido (@estudiantec.cr)"
+            required
+            class="campo-vacio">
 
         <br><br>
-
         <label
         class="texto-vacio">
 

@@ -5,7 +5,7 @@ $conexion = mysqli_connect(
     "root",
     "",
     "avisatec",
-    3307
+    3306
 );
 
 ?>
