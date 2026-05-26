@@ -1,0 +1,174 @@
+<?php
+session_start();
+
+if(!isset($_SESSION["correo"])){
+    header("Location: ../php/index.php");
+    exit();
+}
+
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>AvisaTEC</title>
+        <link rel="stylesheet" href="../css/PaginaPrincipal.css">
+    </head>
+    <body>
+        <img
+            src="../imagenes/logoTecAzul.webp"
+            alt = "Logo del Instituto Tecnológico de Costa Rica"
+            height="65">
+        <h1 id="titulo">AvisaTEC</h1>
+        <p>Bienvenido, <?php echo $_SESSION["correo"];?></p>
+    
+        <!-- Inicio del calendario de eventos -->
+
+        <div class="calendar">
+            <div class="header" id="calendar-month">Cargando...</div>
+            <div class="weekdays">
+                <div style="color: #0066cc;">Sem</div>
+                <div>Lu</div><div>Ma</div><div>Mi</div><div>Ju</div><div>Vi</div><div>Sa</div><div>Do</div>
+            </div>
+            <div class="days" id="calendar-days"></div>
+        </div>
+        <br>
+
+        <script>
+        function generarCalendario() {
+            const fechaActual = new Date();
+            const ano = fechaActual.getFullYear();
+            const mes = fechaActual.getMonth(); 
+            const diaHoy = fechaActual.getDate();
+
+            // Colocar mes y año en el encabezado
+            const opcionesMes = { month: 'long', year: 'numeric' };
+            document.getElementById('calendar-month').innerText = fechaActual.toLocaleDateString('es-ES', opcionesMes);
+
+            const primerDiaMes = new Date(ano, mes, 0).getDay(); 
+            const totalDiasMes = new Date(ano, mes + 1, 0).getDate(); 
+
+            const contenedorDias = document.getElementById('calendar-days');
+            contenedorDias.innerHTML = ""; 
+
+            // Sabemos que el 18 de mayo de 2026 empieza la Semana 13.
+            // Calculamos qué semana le toca al día 1 del mes actual.
+            const fecha18Mayo = new Date(2026, 4, 18); // 18 de Mayo
+            const primerDiaFecha = new Date(ano, mes, 1);
+        
+            // Pasamos la diferencia de tiempo a días matemáticos simples
+            const milisegundosPorDia = 24 * 60 * 60 * 1000;
+            const diferenciaDias = Math.round((primerDiaFecha - fecha18Mayo) / milisegundosPorDia);
+        
+            // Calculamos cuántas semanas de desfase hay respecto a la semana 13
+            // Usamos Math.floor para alinearlo con los bloques de 7 días (domingo a sábado de la cuadrícula)
+            let semanaActual = 12 + Math.floor((diferenciaDias + primerDiaMes - 1) / 7);
+
+            // 1. Crear la etiqueta de la primera fila de semanas
+            let celdaSemana = document.createElement('div');
+            celdaSemana.innerText = "S" + semanaActual;
+            celdaSemana.classList.add('semana-col');
+            contenedorDias.appendChild(celdaSemana);
+
+            let contadorColumnas = 1; 
+
+            // 2. Agregar los espacios en blanco del principio del mes (días antes del día 1)
+            for (let i = 0; i < primerDiaMes; i++) {
+                const espacioBlanco = document.createElement('div');
+                contenedorDias.appendChild(espacioBlanco);
+                contadorColumnas++;
+            }
+
+            // 3. Dibujar los días numéricos del mes
+            for (let dia = 1; dia <= totalDiasMes; dia++) {
+                // Si ya llenamos la fila de la cuadrícula (8 espacios: 1 semana + 7 días), saltamos
+                if (contadorColumnas === 8) {
+                    semanaActual++;
+                    celdaSemana = document.createElement('div');
+                    celdaSemana.innerText = "S" + semanaActual;
+                    celdaSemana.classList.add('semana-col');
+                    contenedorDias.appendChild(celdaSemana);
+                    contadorColumnas = 1; 
+                }
+
+                const celdaDia = document.createElement('div');
+                celdaDia.innerText = dia;
+
+                if (dia === diaHoy) {
+                    celdaDia.classList.add('today');
+                }
+
+                contenedorDias.appendChild(celdaDia);
+               contadorColumnas++;
+            }
+        }
+
+        generarCalendario();
+        </script>
+
+        <!-- Fin del calendario de eventos -->
+        <!-- Ver noticias -->
+        <br><br>
+
+        <a href="../php/noticias.php">
+            <button>Ver noticias</button>
+        </a>
+
+        <!-- Publicar noticias (Solo admins) -->
+        <?php if ($_SESSION["rol"] == "administrador") { ?>
+
+            <br><br>
+            <a href="../php/publicar.php">
+                <button>Publicar noticia</button>
+            </a>
+        <?php } ?>
+
+        <br><br>
+
+        <!-- Inicio de la lista de las asociaciones -->
+        
+        <h3>Lista de asociaciones:</h3>
+
+        <ul id="listaAsociaciones">
+            <li>
+                <form action>
+                    <button type="button">Asociación A</button>
+                </form>
+            </li>
+    
+            <li>
+                <form action>
+                    <button type="submit">Asociación B</button>
+                </form>
+            </li>
+    
+            <li>
+                <form action>
+                    <button type="submit">Asociación C</button>
+                </form>
+            </li>
+        </ul>
+        <br>
+
+        <!-- Fin de la lista de las asociaciones -->
+
+        <footer>
+            <hr>
+            <p>Copyright libre - Puedes copiar y usar este sitio web sin restricciones.</p>
+        
+            <form>
+                <button type="button">
+                    <img src="imagenes/News.png" alt="News" height="50" style="vertical-align: middle;"> Notas de actualización
+                </button>
+            </form>
+            <br>
+            <form>
+                <button type="button">
+                    <img src="imagenes/Perfil_PorDefecto.png" alt="Perfil_PorDefecto" height="50" style="vertical-align: middle;"> Datos Personales
+                </button>
+            </form>
+        </footer>
+
+    </body>
+</html>
