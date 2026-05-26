@@ -46,9 +46,25 @@ $noticia = mysqli_fetch_assoc(
 
     </title>
 
+    </title>
+    <link
+    rel="stylesheet"
+    href="../css/PaginaPrincipal.css">
+
 </head>
 
 <body>
+
+    <header class="barra-logo">
+
+        <img
+        src="../imagenes/logotecblanco.svg"
+        alt="Logo TEC"
+        height="65">
+
+    </header>
+    <div class="barra-horizontal-roja"></div>
+    
 
     <h1>
 
