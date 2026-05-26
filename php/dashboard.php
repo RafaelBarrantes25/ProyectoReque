@@ -31,11 +31,18 @@ if(!isset($_SESSION["correo"])){
 
 <body>
 
-    <img
-    src="../imagenes/logoTecAzul.webp"
-    alt="Logo del Instituto Tecnológico de Costa Rica"
-    height="65">
+    <header class="barra-logo">
 
+        <img
+        src="../imagenes/logotecblanco.svg"
+        alt="Logo TEC"
+        height="65">
+
+    </header>
+    <div class="barra-horizontal-roja"></div>
+
+    <br>
+    <br>
     <h1 id="titulo">
 
         AvisaTEC
@@ -185,7 +192,7 @@ if(!isset($_SESSION["correo"])){
 
     <footer>
 
-        <hr>
+        <div class="barra-horizontal-roja"></div>
 
         <p>
 
