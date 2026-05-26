@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>AvisaTEC | Iniciar sesión</title>
+    </head>
+    <body>
+        <link rel="stylesheet" href = "css/registrar.css">
+        <header class="barra-logo">
+        <img src="../imagenes/logotec.svg" alt="Logo del Instituto Tecnológico de Costa Rica" height="65">
+        </header>
+        <div class="barra-horizontal-roja"></div>
+        <h1 class = "titulo">Iniciar sesión</h1>
+        <br>
+        <br>
+        <form action="../includes/formhandler.php" method="POST">
+
+            <label for="Correo" class="texto-vacio"> Correo: </label>
+            <br>
+            <input type="email" id="Correo"
+            placeholder="correo@estudiantec.cr"
+            required
+            class="campo-vacio">
+            <br>
+            <br>
+
+
+            <label for="Contraseña" class="texto-vacio"> Contraseña: </label>
+            <br>
+            <input type="password" id="Contraseña"
+            minlength="8"
+            required
+            class="campo-vacio">
+            <br>
+            <br>
+            <input type="submit" value="Iniciar sesión"
+            class="campo-vacio">
+        </form>
+        <br>
+        <br>
+        <a href="registrar.html" class="texto-vacio">
+            Crear cuenta
+        </a>
+        <div class="barra-fondo-roja"></div>
+        <br>
+        <div class="barra-fondo-azul"></div>
+    </body>
+</html>
