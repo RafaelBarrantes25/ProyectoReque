@@ -10,7 +10,7 @@ if(
     die("Acceso denegado");
 }
 
-include "includes/conexion.php";
+include "../includes/conexion.php";
 
 $id = $_GET["id"];
 
@@ -18,12 +18,17 @@ $sql = "SELECT * FROM noticias
 WHERE id='$id'";
 
 $resultado = mysqli_query(
+
     $conexion,
+
     $sql
+
 );
 
 $noticia = mysqli_fetch_assoc(
+
     $resultado
+
 );
 
 ?>
@@ -53,7 +58,7 @@ $noticia = mysqli_fetch_assoc(
 
     <form
 
-    action="includes/actualizar.php"
+    action="../includes/actualizar.php"
 
     method="POST"
 
@@ -112,16 +117,18 @@ $noticia = mysqli_fetch_assoc(
         <?php
 
         if(
+
             !empty(
                 $noticia["imagen"]
             )
+
         ){
 
         ?>
 
             <img
 
-            src="uploads/<?php
+            src="../uploads/<?php
             echo $noticia["imagen"];
             ?>"
 

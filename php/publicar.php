@@ -1,72 +1,119 @@
+<?php
+
+session_start();
+
+if(
+    $_SESSION["rol"]
+    != "administrador"
+){
+
+    die("Acceso denegado");
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>Publicar noticia</title>
-</head>
 
+    <title>
+
+        Publicar noticia
+
+    </title>
+
+</head>
 
 <body>
 
-    <?php
-
-    session_start();
-
-    if(
-        $_SESSION["rol"]
-        != "administrador"
-    ){
-
-        die("Acceso denegado");
-    }
-
-    ?>
-
     <h1>
+
         Nueva noticia
+
     </h1>
 
     <form
-    action="includes/guardar_noticia.php"
+
+    action="../includes/guardar_noticia.php"
+
     method="POST"
+
     enctype="multipart/form-data">
 
-        <label>Título</label>
+        <label>
+
+            Título
+
+        </label>
+
         <br>
 
         <input
+
         type="text"
+
         name="titulo"
+
         required>
 
         <br><br>
 
-        <label>Descripción</label>
+        <label>
+
+            Descripción
+
+        </label>
+
         <br>
 
         <textarea
+
         name="descripcion"
+
         required>
+
         </textarea>
 
         <br><br>
 
-        <input
-        type="submit"
-        value="Publicar">
+        <label>
 
-        <label>Imagen</label>
+            Imagen
+
+        </label>
 
         <br>
 
         <input
+
         type="file"
+
         name="imagen"
+
         accept="image/*">
 
         <br><br>
 
+        <input
+
+        type="submit"
+
+        value="Publicar">
+
     </form>
+
+    <br><br>
+
+    <a href="noticias.php">
+
+        <button>
+
+            Volver a noticias
+
+        </button>
+
+    </a>
 
 </body>
 </html>

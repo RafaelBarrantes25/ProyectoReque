@@ -17,18 +17,22 @@ if(!isset($_SESSION["correo"])){
 
     <meta charset="UTF-8">
 
-    <title>AvisaTEC</title>
+    <title>
+
+        AvisaTEC
+
+    </title>
 
     <link
     rel="stylesheet"
-    href="PaginaPrincipal.css">
+    href="../css/PaginaPrincipal.css">
 
 </head>
 
 <body>
 
     <img
-    src="imagenes/logoTecAzul.webp"
+    src="../imagenes/logoTecAzul.webp"
     alt="Logo del Instituto Tecnológico de Costa Rica"
     height="65">
 
@@ -195,7 +199,7 @@ if(!isset($_SESSION["correo"])){
         <button type="button">
 
             <img
-            src="imagenes/News.png"
+            src="../imagenes/News.png"
             alt="News"
             height="50"
             style="vertical-align: middle;">
@@ -209,7 +213,7 @@ if(!isset($_SESSION["correo"])){
         <button type="button">
 
             <img
-            src="imagenes/Perfil_PorDefecto.png"
+            src="../imagenes/Perfil_PorDefecto.png"
             alt="Perfil"
             height="50"
             style="vertical-align: middle;">
@@ -220,7 +224,7 @@ if(!isset($_SESSION["correo"])){
 
         <br><br>
 
-        <a href="logout.php">
+        <a href="../includes/logout.php">
 
             <button>
 

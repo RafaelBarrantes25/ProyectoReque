@@ -22,14 +22,21 @@ $sql_verificar = "SELECT * FROM usuarios
 WHERE correo='$correo'";
 
 $resultado_verificar = mysqli_query(
+
     $conexion,
+
     $sql_verificar
+
 );
 
 if(
+
     mysqli_num_rows(
+
         $resultado_verificar
+
     ) > 0
+
 ){
 
     die("El correo ya existe");
@@ -46,8 +53,11 @@ VALUES
 if(
 
     mysqli_query(
+
         $conexion,
+
         $sql
+
     )
 
 ){
@@ -73,13 +83,13 @@ if(
 
         <h1>
 
-            Cuenta creada correctamente 
+            Cuenta creada correctamente
 
         </h1>
 
         <br>
 
-        <a href="../index.php">
+        <a href="../php/index.php">
 
             <button>
 

@@ -18,14 +18,16 @@ $sql = "DELETE FROM noticias
 WHERE id='$id'";
 
 if(
+
     mysqli_query(
         $conexion,
         $sql
     )
+
 ){
 
     header(
-        "Location: ../noticias.php"
+        "Location: ../php/noticias.php"
     );
 
 }else{

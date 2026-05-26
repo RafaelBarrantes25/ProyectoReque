@@ -13,7 +13,7 @@
 
     <link
     rel="stylesheet"
-    href="css/registrar.css">
+    href="../css/registrar.css">
 
 </head>
 
@@ -22,7 +22,7 @@
     <header class="barra-logo">
 
         <img
-        src="imagenes/logotecblanco.svg"
+        src="../imagenes/logotecblanco.svg"
         alt="Logo del Instituto Tecnológico de Costa Rica"
         height="65">
 
@@ -39,7 +39,7 @@
     <br><br>
 
     <form
-    action="includes/login.php"
+    action="../includes/login.php"
     method="POST">
 
         <label

@@ -55,7 +55,7 @@ if(
 ){
 
     header(
-        "Location: ../noticias.php"
+        "Location: ../php/noticias.php"
     );
 
 }else{

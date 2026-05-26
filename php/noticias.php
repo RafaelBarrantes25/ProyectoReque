@@ -5,16 +5,20 @@ session_start();
 if(!isset($_SESSION["correo"])){
 
     header("Location: index.php");
+    exit();
 }
 
-include "includes/conexion.php";
+include "../includes/conexion.php";
 
 $sql = "SELECT * FROM noticias
 ORDER BY fecha DESC";
 
 $resultado = mysqli_query(
+
     $conexion,
+
     $sql
+
 );
 
 ?>
@@ -46,7 +50,7 @@ $resultado = mysqli_query(
 
         <button>
 
-            Volver al dashboard
+            Volver al inicio
 
         </button>
 
@@ -88,16 +92,18 @@ $resultado = mysqli_query(
             <?php
 
             if(
+
                 !empty(
                     $fila["imagen"]
                 )
+
             ){
 
             ?>
 
                 <img
 
-                src="uploads/<?php
+                src="../uploads/<?php
                 echo $fila["imagen"];
                 ?>"
 
@@ -166,7 +172,7 @@ $resultado = mysqli_query(
                 </a>
 
                 <a
-                href="includes/eliminar.php?id=<?php
+                href="../includes/eliminar.php?id=<?php
                 echo $fila['id'];
                 ?>">
 

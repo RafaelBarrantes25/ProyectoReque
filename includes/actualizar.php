@@ -63,6 +63,20 @@ $sqlImagen
 
 WHERE id='$id'";
 
+/*
+ARREGLADO:
+*/
+
+$sql = "UPDATE noticias SET
+
+titulo='$titulo',
+
+descripcion='$descripcion'
+
+$sqlImagen
+
+WHERE id='$id'";
+
 if(
 
     mysqli_query(
@@ -73,12 +87,15 @@ if(
 ){
 
     header(
-        "Location: ../noticias.php"
+        "Location: ../php/noticias.php"
     );
 
 }else{
 
-    echo "Error";
+    echo "Error: " .
+    mysqli_error(
+        $conexion
+    );
 }
 
 ?>
