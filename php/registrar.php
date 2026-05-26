@@ -58,6 +58,7 @@
             placeholder="correo@estudiantec.cr"
             pattern="[a-zA-Z0-9._%+-]+@estudiantec\.cr$"
             title="Por favor, ingresa un correo institucional válido (@estudiantec.cr)"
+            autocomplete="off"
             required
             class="campo-vacio">
 

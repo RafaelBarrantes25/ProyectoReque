@@ -13,7 +13,7 @@
 
     <link
     rel="stylesheet"
-    href="../css/registrar.css">
+    href="../css/index.css">
 
 </head>
 
@@ -38,58 +38,28 @@
 
     <br><br>
 
-    <form
-    action="../includes/login.php"
-    method="POST">
+    <div id="globo-error" class="globo-oculto"></div>
 
-        <label
-        for="correo"
-        class="texto-vacio">
+    <form id="form-login" action="../includes/login.php" method="POST">
 
-            Correo:
-
-        </label>
-
+        <label for="correo" class="texto-vacio">Correo:</label>
         <br>
-
-        <input
-        type="email"
-        id="correo"
-        name="correo"
-        placeholder="correo@estudiantec.cr"
-        required
-        class="campo-vacio">
+        <input type="email" id="correo" name="correo" placeholder="correo@estudiantec.cr" pattern="^[a-zA-Z0-9._%+-]+@estudiantec\.cr$" title="Por favor, ingresa un correo institucional válido (@estudiantec.cr)" required class="campo-vacio">
 
         <br><br>
 
-        <label
-        for="password"
-        class="texto-vacio">
-
-            Contraseña:
-
-        </label>
-
+        <label for="password" class="texto-vacio">Contraseña:</label>
         <br>
-
-        <input
-        type="password"
-        id="password"
-        name="password"
-        minlength="8"
-        required
-        class="campo-vacio">
+        <input type="password" id="password" name="password" minlength="8" required class="campo-vacio">
 
         <br><br>
 
-        <input
-        type="submit"
-        value="Iniciar sesión"
-        class="campo-vacio">
+        <input type="submit" value="Iniciar sesión" class="campo-vacio">
 
     </form>
 
     <br><br>
+
 
     <a
     href="registrar.php"
@@ -102,6 +72,50 @@
     <div class="barra-fondo-roja"></div>
 
     <div class="barra-fondo-azul"></div>
+
+
+    <script>
+    document.getElementById('form-login').addEventListener('submit', async function(e) {
+        e.preventDefault(); // Evita por completo que la página se recargue o se mueva
+    
+        const globo = document.getElementById('globo-error');
+    
+        // Ocultamos el globo si ya había uno abierto de un intento anterior
+        globo.classList.remove('mostrar'); 
+
+        const formData = new FormData(this);
+
+        try {
+            const respuesta = await fetch(this.action, {
+                method: 'POST',
+                body: formData
+            });
+
+            const resultado = await respuesta.json();
+
+            if (resultado.status === 'error') {
+                // 1. Le metemos el texto del error que mandó PHP
+                globo.textContent = resultado.message;
+            
+                // 2. Le agregamos la clase para que aparezca flotando con la animación CSS
+                globo.classList.add('mostrar');
+            
+                // 3. Programamos para que el globo se oculte solo en 4 segundos
+                setTimeout(() => {
+                    globo.classList.remove('mostrar');
+                }, 4000);
+
+            } else if (resultado.status === 'success') {
+             // Si todo está bien, aquí SÍ lo dejamos pasar al sistema
+             window.location.href = '../php/dashboard.php'; 
+            }
+
+        } catch (error) {
+            globo.textContent = 'Hubo un problema al conectar con el servidor.';
+            globo.classList.add('mostrar');
+        }
+    });
+    </script>
 
 </body>
 </html>
