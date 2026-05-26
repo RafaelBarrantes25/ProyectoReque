@@ -1,0 +1,407 @@
+<?php
+
+session_start();
+
+if(!isset($_SESSION["correo"])){
+
+    header("Location: index.php");
+    exit();
+}
+
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>AvisaTEC</title>
+
+    <link
+    rel="stylesheet"
+    href="PaginaPrincipal.css">
+
+</head>
+
+<body>
+
+    <img
+    src="imagenes/logoTecAzul.webp"
+    alt="Logo del Instituto Tecnológico de Costa Rica"
+    height="65">
+
+    <h1 id="titulo">
+
+        AvisaTEC
+
+    </h1>
+
+    <p>
+
+        Bienvenido,
+
+        <?php
+
+        echo $_SESSION["correo"];
+
+        ?>
+
+    </p>
+
+    <!-- Inicio calendario -->
+
+    <div class="calendar">
+
+        <div
+        class="header"
+        id="calendar-month">
+
+            Cargando...
+
+        </div>
+
+        <div class="weekdays">
+
+            <div style="color: #0066cc;">
+
+                Sem
+
+            </div>
+
+            <div>Lu</div>
+            <div>Ma</div>
+            <div>Mi</div>
+            <div>Ju</div>
+            <div>Vi</div>
+            <div>Sa</div>
+            <div>Do</div>
+
+        </div>
+
+        <div
+        class="days"
+        id="calendar-days">
+
+        </div>
+
+    </div>
+
+    <br><br>
+
+    <!-- Ver noticias -->
+
+    <a href="noticias.php">
+
+        <button>
+
+            Ver noticias
+
+        </button>
+
+    </a>
+
+    <!-- Solo admins -->
+
+    <?php
+
+    if(
+        $_SESSION["rol"]
+        == "administrador"
+    ){
+
+    ?>
+
+        <br><br>
+
+        <a href="publicar.php">
+
+            <button>
+
+                Publicar noticia
+
+            </button>
+
+        </a>
+
+    <?php
+
+    }
+
+    ?>
+
+    <br><br>
+
+    <!-- Asociaciones -->
+
+    <h3>
+
+        Lista de asociaciones:
+
+    </h3>
+
+    <ul id="listaAsociaciones">
+
+        <li>
+
+            <button type="button">
+
+                Asociación A
+
+            </button>
+
+        </li>
+
+        <li>
+
+            <button type="button">
+
+                Asociación B
+
+            </button>
+
+        </li>
+
+        <li>
+
+            <button type="button">
+
+                Asociación C
+
+            </button>
+
+        </li>
+
+    </ul>
+
+    <br>
+
+    <!-- Footer -->
+
+    <footer>
+
+        <hr>
+
+        <p>
+
+            Copyright libre -
+            Puedes copiar y usar
+            este sitio web
+            sin restricciones.
+
+        </p>
+
+        <button type="button">
+
+            <img
+            src="imagenes/News.png"
+            alt="News"
+            height="50"
+            style="vertical-align: middle;">
+
+            Notas de actualización
+
+        </button>
+
+        <br><br>
+
+        <button type="button">
+
+            <img
+            src="imagenes/Perfil_PorDefecto.png"
+            alt="Perfil"
+            height="50"
+            style="vertical-align: middle;">
+
+            Datos Personales
+
+        </button>
+
+        <br><br>
+
+        <a href="logout.php">
+
+            <button>
+
+                Cerrar sesión
+
+            </button>
+
+        </a>
+
+    </footer>
+
+    <!-- JavaScript Calendario -->
+
+    <script>
+
+    function generarCalendario(){
+
+        const fechaActual =
+        new Date();
+
+        const ano =
+        fechaActual.getFullYear();
+
+        const mes =
+        fechaActual.getMonth();
+
+        const diaHoy =
+        fechaActual.getDate();
+
+        const opcionesMes = {
+
+            month: 'long',
+            year: 'numeric'
+
+        };
+
+        document
+        .getElementById(
+            'calendar-month'
+        )
+        .innerText =
+        fechaActual
+        .toLocaleDateString(
+            'es-ES',
+            opcionesMes
+        );
+
+        let primerDiaMes =
+        new Date(
+            ano,
+            mes,
+            1
+        ).getDay();
+
+        // Ajuste:
+        // lunes = 0
+        // domingo = 6
+
+        primerDiaMes =
+        (primerDiaMes + 6) % 7;
+
+        const totalDiasMes =
+        new Date(
+            ano,
+            mes + 1,
+            0
+        ).getDate();
+
+        const contenedorDias =
+        document.getElementById(
+            'calendar-days'
+        );
+
+        contenedorDias.innerHTML =
+        "";
+
+        let semanaActual = 1;
+
+        let celdaSemana =
+        document.createElement(
+            'div'
+        );
+
+        celdaSemana.innerText =
+        "S" + semanaActual;
+
+        celdaSemana.classList.add(
+            'semana-col'
+        );
+
+        contenedorDias.appendChild(
+            celdaSemana
+        );
+
+        let contadorColumnas = 1;
+
+        // Espacios vacíos
+
+        for(
+            let i = 0;
+            i < primerDiaMes;
+            i++
+        ){
+
+            const espacioBlanco =
+            document.createElement(
+                'div'
+            );
+
+            contenedorDias
+            .appendChild(
+                espacioBlanco
+            );
+
+            contadorColumnas++;
+        }
+
+        // Días
+
+        for(
+            let dia = 1;
+            dia <= totalDiasMes;
+            dia++
+        ){
+
+            if(
+                contadorColumnas === 8
+            ){
+
+                semanaActual++;
+
+                celdaSemana =
+                document.createElement(
+                    'div'
+                );
+
+                celdaSemana.innerText =
+                "S" + semanaActual;
+
+                celdaSemana.classList.add(
+                    'semana-col'
+                );
+
+                contenedorDias
+                .appendChild(
+                    celdaSemana
+                );
+
+                contadorColumnas = 1;
+            }
+
+            const celdaDia =
+            document.createElement(
+                'div'
+            );
+
+            celdaDia.innerText =
+            dia;
+
+            if(
+                dia === diaHoy
+            ){
+
+                celdaDia.classList.add(
+                    'today'
+                );
+            }
+
+            contenedorDias
+            .appendChild(
+                celdaDia
+            );
+
+            contadorColumnas++;
+        }
+
+    }
+
+    generarCalendario();
+
+    </script>
+
+</body>
+</html>
