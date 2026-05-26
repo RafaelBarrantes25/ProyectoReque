@@ -54,9 +54,8 @@ if(!isset($_SESSION["correo"])){
         Bienvenido,
 
         <?php
-
-        echo $_SESSION["correo"];
-
+            $partes = explode("@", $_SESSION["correo"]);
+            echo $partes[0];
         ?>
 
     </p>

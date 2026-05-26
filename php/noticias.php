@@ -27,6 +27,9 @@ $resultado = mysqli_query(
 <html lang="es">
 
 <head>
+    <link
+    rel="stylesheet"
+    href="../css/noticias.css">
 
     <meta charset="UTF-8">
 
@@ -40,6 +43,15 @@ $resultado = mysqli_query(
 
 <body>
 
+    <header class="barra-logo">
+
+        <img
+        src="../imagenes/logotecblanco.svg"
+        alt="Logo TEC"
+        height="65">
+
+    </header>
+    <div class="barra-horizontal-roja"></div>
     <h1>
 
         Noticias
