@@ -106,6 +106,24 @@
 
             </option>
 
+            <option value="forestal">
+
+                Forestal
+
+            </option>
+
+            <option value="electronica">
+
+                Electronica
+
+            </option>
+
+            <option value="Computadores">
+
+                Computadores
+
+            </option>
+
         </select>
 
         <br><br>
